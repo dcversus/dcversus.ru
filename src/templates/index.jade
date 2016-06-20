@@ -1,0 +1,12 @@
+extends layout
+
+block vars
+  - var title = 'Василий Версус — dcversus'
+
+block content
+  header.banner(role="banner")
+    .container
+      figure
+        img(src="/logo.png")
+
+      include:markdown ./index.md

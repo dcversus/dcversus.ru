@@ -1,0 +1,14 @@
+@import url('_typography.css');
+
+*, *::before, *::after {
+	box-sizing: inherit;
+}
+
+:root {
+	background: white;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
