@@ -21,30 +21,40 @@ gulp.task('movestatic', () =>
 );
 
 gulp.task('cleanhtml', del.bind(null, ['./dist/**/*.html']));
-gulp.task('template', ['cleanhtml'],() => {
-  const jade = require('gulp-jade');
-  var posts = [];
+gulp.task('template', ['cleanhtml'], () => {
+  const jade        = require('gulp-jade');
+  const frontMatter = require('gulp-front-matter');
+  const marked      = require('gulp-marked');
+  const rename      = require('gulp-rename');
+  const through     = require('through2');
+  const Path        = require('path');
 
-  glob.sync('./src/posts/**/*.md').forEach(post =>  {
-    posts.push(post);
-  })
+  gulp.src('./src/posts/**/*.md')
+    .pipe(frontMatter({
+      property: 'data',
+      remove: true
+    }))
+    .pipe(marked())
+    .pipe(through.obj((file, enc, callback) => {
+      let newPath = file.path.replace(/(index)?.html/g, '\\index.html');
+      let newBase = file.base;
+      file.data.content = file.contents.toString();
+      console.log(posts);
 
-  gulp.src('./src/templates/index.jade')
-    .pipe(jade({
-      pretty: false,
-      locals: {
-        posts: posts
-      }
+      gulp.src(`./src/templates/${file.data.template}.jade`)
+        .pipe(jade({
+          pretty: false,
+          locals: file.data
+        }))
+        .pipe(through.obj(file => {
+          file.path = newPath;
+          file.base = newBase;
+
+          callback(null, file)
+        }))
     }))
     .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.stream({ once: true }))
-
-    console.log(posts);
-
-  // gulp
-  //   .src('./src/templates/**/*.html')
-  //   .pipe(gulp.dest('./dist'))
-  //   .pipe(browserSync.stream({ once: true }))
+    .pipe(browserSync.stream({ once: true }));
 });
 
 gulp.task('cleanjs', del.bind(null, ['./dist/**/*.js']));
