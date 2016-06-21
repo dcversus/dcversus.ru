@@ -1,11 +1,19 @@
-const gulp = require('gulp');
-const source = require('vinyl-source-stream');
+const gulp        = require('gulp');
+const source      = require('vinyl-source-stream');
 const browserSync = require('browser-sync');
-const del = require('del');
-const glob = require('glob');
-const util = require('gulp-util');
-const plumber = require('gulp-plumber');
-
+const del         = require('del');
+const glob        = require('glob');
+const util        = require('gulp-util');
+const plumber     = require('gulp-plumber');
+const frontMatter = require('gulp-front-matter');
+const through     = require('through2');
+const jade        = require('gulp-jade');
+const marked      = require('gulp-marked');
+const rename      = require('gulp-rename');
+var site = {
+  posts: [],
+  tags: []
+};
 
 function onError(err) {
   util.beep();
@@ -21,15 +29,34 @@ gulp.task('movestatic', () =>
 );
 
 gulp.task('cleanhtml', del.bind(null, ['./dist/**/*.html']));
-gulp.task('template', ['cleanhtml'], () => {
-  const jade        = require('gulp-jade');
-  const frontMatter = require('gulp-front-matter');
-  const marked      = require('gulp-marked');
-  const rename      = require('gulp-rename');
-  const through     = require('through2');
-  const Path        = require('path');
+gulp.task('preparehtml', ['cleanhtml'], () =>
+  gulp
+    .src('./src/posts/**/*.md')
+    .pipe(frontMatter({
+      property: 'data',
+      remove: true
+    }))
+    .pipe(marked())
+    .pipe(through.obj((file, enc, callback) => {
+      var summary = file.contents.toString().split('<!--more-->')[0]
+      file.data.summary = summary;
 
-  gulp.src('./src/posts/**/*.md')
+      if (file.data.tags) {
+        file.data.tags.forEach(tag => {
+          if (site.tags.indexOf(tag) == -1) {
+            site.tags.push(tag);
+          }
+        });
+      }
+
+      site.posts.push(file.data);
+      callback();
+    }))
+)
+
+gulp.task('template', ['preparehtml'], () =>
+  gulp
+    .src('./src/posts/**/*.md')
     .pipe(frontMatter({
       property: 'data',
       remove: true
@@ -38,8 +65,9 @@ gulp.task('template', ['cleanhtml'], () => {
     .pipe(through.obj((file, enc, callback) => {
       let newPath = file.path.replace(/(index)?.html/g, '\\index.html');
       let newBase = file.base;
+
+      file.data.site = site;
       file.data.content = file.contents.toString();
-      console.log(posts);
 
       gulp.src(`./src/templates/${file.data.template}.jade`)
         .pipe(jade({
@@ -54,8 +82,10 @@ gulp.task('template', ['cleanhtml'], () => {
         }))
     }))
     .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.stream({ once: true }));
-});
+    .pipe(browserSync.stream({
+      once: true
+    }))
+);
 
 gulp.task('cleanjs', del.bind(null, ['./dist/**/*.js']));
 gulp.task('js', () => {
