@@ -9,7 +9,7 @@ const frontMatter = require('gulp-front-matter');
 const through     = require('through2');
 const jade        = require('gulp-jade');
 const marked      = require('gulp-marked');
-const deploy      = require('gulp-gh-pages');
+const ghPages     = require('gulp-gh-pages');
 var site = {
   posts: [],
   tags: []
@@ -96,7 +96,8 @@ gulp.task('js', () => {
   const babelify   = require('babelify');
   const browserify = require('browserify');
 
-  gulp.src('./src/javascripts/**/*.js')
+  gulp
+    .src('./src/javascripts/**/*.js')
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))
 
@@ -121,7 +122,8 @@ gulp.task('css', ['cleancss'], () => {
   const pCalc        = require("postcss-calc");
   const autoprefixer = require('autoprefixer');
 
-  return gulp.src('./src/stylesheets/application.css')
+  return gulp
+    .src('./src/stylesheets/application.css')
     .pipe(postcss([ autoprefixer('last 2 version'), pImport, pVars, pCalc ]))
     .pipe(gulp.dest('./dist'))
     .pipe(browserSync.stream())
@@ -142,6 +144,14 @@ gulp.task('serve', ['watch'], () =>
       baseDir: ['./dist']
     }
   })
+);
+
+gulp.task('deploy', ['build'], () =>
+  gulp
+    .src('./dist/**/*')
+    .pipe(ghPages({
+      branch: 'master'
+    }))
 );
 
 gulp.task('default', ['serve']);

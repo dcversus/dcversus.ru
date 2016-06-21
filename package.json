@@ -4,7 +4,8 @@
   "description": "",
   "author": "dcversus <dcversus@gmail.com>",
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "deploy": "gulp deploy"
   },
   "dependencies": {
     "autoprefixer": "^6.3.6",
