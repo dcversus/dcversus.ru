@@ -1,15 +1,15 @@
+const del         = require('del');
+const glob        = require('glob');
 const gulp        = require('gulp');
 const source      = require('vinyl-source-stream');
 const browserSync = require('browser-sync');
-const del         = require('del');
-const glob        = require('glob');
 const util        = require('gulp-util');
 const plumber     = require('gulp-plumber');
 const frontMatter = require('gulp-front-matter');
 const through     = require('through2');
 const jade        = require('gulp-jade');
 const marked      = require('gulp-marked');
-const rename      = require('gulp-rename');
+const deploy      = require('gulp-gh-pages');
 var site = {
   posts: [],
   tags: []
@@ -32,6 +32,7 @@ gulp.task('cleanhtml', del.bind(null, ['./dist/**/*.html']));
 gulp.task('preparehtml', ['cleanhtml'], () =>
   gulp
     .src('./src/posts/**/*.md')
+    .on('error', onError)
     .pipe(frontMatter({
       property: 'data',
       remove: true
@@ -69,11 +70,13 @@ gulp.task('template', ['preparehtml'], () =>
       file.data.site = site;
       file.data.content = file.contents.toString();
 
-      gulp.src(`./src/templates/${file.data.template}.jade`)
+      gulp
+        .src(`./src/templates/${file.data.template}.jade`)
         .pipe(jade({
           pretty: false,
           locals: file.data
         }))
+        .on('error', onError)
         .pipe(through.obj(file => {
           file.path = newPath;
           file.base = newBase;
@@ -129,7 +132,8 @@ gulp.task('watch', ['build'], () => {
   gulp.watch('src/javascripts/**/*', ['js']);
   gulp.watch('src/stylesheets/**/*', ['css']);
   gulp.watch('src/templates/**/*', ['template']);
-  gulp.watch('src/static/**/*').on('change', browserSync.reload);
+  gulp.watch('src/posts/**/*.md', ['template']);
+  gulp.watch('src/static/**/*', ['movestatic']).on('change', browserSync.reload);
 });
 
 gulp.task('serve', ['watch'], () =>
