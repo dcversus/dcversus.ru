@@ -10,6 +10,7 @@ const through     = require('through2');
 const jade        = require('gulp-jade');
 const marked      = require('gulp-marked');
 const ghPages     = require('gulp-gh-pages');
+const postcss     = require('gulp-postcss');
 var site;
 
 function onError(err) {
@@ -118,15 +119,16 @@ gulp.task('js', () => {
 
 gulp.task('cleancss', del.bind(null, ['./dist/**/*.css']));
 gulp.task('css', ['cleancss'], () => {
-  const postcss      = require('gulp-postcss');
-  const pVars        = require('postcss-css-variables');
-  const pImport      = require("postcss-import");
-  const pCalc        = require("postcss-calc");
-  const autoprefixer = require('autoprefixer');
-
   return gulp
     .src('./src/stylesheets/application.css')
-    .pipe(postcss([ autoprefixer('last 2 version'), pImport, pVars, pCalc ]))
+    .pipe(postcss([
+      require('stylelint')(),
+      require('autoprefixer')('last 2 version'),
+      require("postcss-import"),
+      require('postcss-css-variables'),
+      require("postcss-calc")
+    ]))
+    .on('error', onError)
     .pipe(gulp.dest('./dist'))
     .pipe(browserSync.stream())
 });
