@@ -124,9 +124,10 @@ gulp.task('css', ['cleancss'], () => {
     .pipe(postcss([
       require('stylelint')(),
       require('autoprefixer')('last 2 version'),
-      require("postcss-import"),
+      require('postcss-import'),
       require('postcss-css-variables'),
-      require("postcss-calc")
+      require('postcss-calc'),
+      require('cssnano')()
     ]))
     .on('error', onError)
     .pipe(gulp.dest('./dist'))
