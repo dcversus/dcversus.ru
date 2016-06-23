@@ -3,7 +3,22 @@ extends layout
 block content
   header.banner(role="banner")
     .container
-      figure
-        img(src="/logo.png")
+      figure.logo
+        img(src="/logo.png" alt="logo")
 
-    | !{content}
+      h1
+        | Василий Версус &mdash;
+        span технологии &amp; дизайн
+
+      | !{content}
+
+  .container
+    //- .tags
+      each tag in site.tags
+        a.tag [#{tag}]
+
+    .posts
+      h2 Записи
+      each post in site.posts
+        unless post.page
+          a.post #{post.title}

@@ -1,14 +1,16 @@
+@import url('../../node_modules/normalize.css/normalize.css');
 @import url('_typography.css');
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
+@import url('_layout.css');
+@import url('_index-page.css');
 
 :root {
-  background: white;
-  box-sizing: border-box;
+  --accent-color: #f9690e;
+  --base-color: #333;
+  --dark-color: #06061d;
+  --light-color: #73737c;
 }
 
-body {
-  margin: 0;
+::selection {
+  color: white;
+  background: var(--accent-color);
 }

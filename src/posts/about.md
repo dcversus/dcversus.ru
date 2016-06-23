@@ -1,9 +1,7 @@
 ---
 template: post
 title: About page
-tags:
-    - post
-    - about
+page: true
 ---
 
 # BUGAGA

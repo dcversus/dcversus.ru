@@ -1,0 +1,25 @@
+.banner {
+  position: relative;
+  overflow: hidden;
+  background: var(--base-color);
+}
+
+.banner .logo {
+  margin: 0 0 4rem;
+}
+
+.banner h1 {
+  color: var(--accent-color);
+  font-size: 3rem;
+  line-height: 110%;
+}
+
+.banner h1 span {
+  display: block;
+  opacity: .6;
+}
+
+.banner p {
+  color: white;
+  opacity: .6;
+}
