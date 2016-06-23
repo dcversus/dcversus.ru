@@ -17,7 +17,7 @@
 :root {
   font-family: Circle, Helvetica, sans-serif;
   font-size: 16px;
-  color: var(--base-color);
+  color: var(--light-color);
 }
 
 h1, h2, h3 {
@@ -26,17 +26,17 @@ h1, h2, h3 {
 }
 
 h1 {
-  margin-bottom: 4rem;
+  margin: 0 0 4rem;
   font-size: 2rem;
 }
 
 h2 {
-  margin-bottom: 2rem;
+  margin: 0 0 2rem;
   font-size: 1.75rem;
 }
 
 h3 {
-  margin-bottom: 2rem;
+  margin: 0 0 2rem;
   font-size: 1.5rem;
 }
 
@@ -54,12 +54,31 @@ a:hover {
   color: var(--accent-color);
 }
 
+p {
+  margin: 0 0 1rem;
+}
+
 .center {
   text-align: center;
 }
 
 hr {
-  display: block;
-  height: 1px;
   background: var(--light-color);
+  display: block;
+  width: 25%;
+  height: 1px;
+  opacity: 0.2;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+ul {
+  margin: 0 0 1rem;
+}
+
+ul li:before {
+  content: "-";
+  display: inline-block;
+  margin-right: 1rem;
 }

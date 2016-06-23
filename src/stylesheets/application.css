@@ -1,13 +1,14 @@
-@import url('../../node_modules/normalize.css/normalize.css');
-@import url('_typography.css');
-@import url('_layout.css');
-@import url('_index-page.css');
+@import 'reset-css/reset.css';
+
+@import 'typography.css';
+@import 'layout.css';
+@import 'index-page.css';
 
 :root {
   --accent-color: #f9690e;
   --base-color: #333;
   --dark-color: #06061d;
-  --light-color: #73737c;
+  --light-color: #888;
 }
 
 ::selection {
