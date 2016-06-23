@@ -10,10 +10,7 @@ const through     = require('through2');
 const jade        = require('gulp-jade');
 const marked      = require('gulp-marked');
 const ghPages     = require('gulp-gh-pages');
-var site = {
-  posts: [],
-  tags: []
-};
+var site;
 
 function onError(err) {
   util.beep();
@@ -23,13 +20,18 @@ function onError(err) {
 
 gulp.task('movestatic', () =>
   gulp
-    .src(['./src/static/**'])
+    .src('./src/static/**')
     .pipe(plumber())
     .pipe(gulp.dest('./dist'))
 );
 
 gulp.task('cleanhtml', del.bind(null, ['./dist/**/*.html']));
-gulp.task('preparehtml', ['cleanhtml'], () =>
+gulp.task('preparehtml', ['cleanhtml'], () => {
+  site = {
+    posts: [],
+    tags: []
+  };
+
   gulp
     .src('./src/posts/**/*.md')
     .on('error', onError)
@@ -53,7 +55,7 @@ gulp.task('preparehtml', ['cleanhtml'], () =>
       site.posts.push(file.data);
       callback();
     }))
-)
+})
 
 gulp.task('template', ['preparehtml'], () =>
   gulp
