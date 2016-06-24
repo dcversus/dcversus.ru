@@ -94,3 +94,7 @@ ul li:before {
   display: inline-block;
   margin-right: 1rem;
 }
+
+pre {
+  margin-bottom: 2rem;
+}
