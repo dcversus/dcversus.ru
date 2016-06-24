@@ -20,7 +20,9 @@
   color: var(--light-color);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: var(--dark-color);
   font-weight: 300;
 }
@@ -38,6 +40,12 @@ h2 {
 h3 {
   margin: 0 0 2rem;
   font-size: 1.5rem;
+}
+
+p + h1,
+p + h2,
+p + h3 {
+  margin: 2rem 0 1rem;
 }
 
 a {
@@ -75,6 +83,10 @@ hr {
 
 ul {
   margin: 0 0 1rem;
+}
+
+ul li {
+  margin-bottom: .5rem;
 }
 
 ul li:before {

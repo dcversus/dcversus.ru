@@ -41,22 +41,22 @@ gulp.task('preparehtml', ['cleanhtml'], () => {
       remove: true
     }))
     .pipe(marked())
-    .pipe(through.obj((file, enc, callback) => {
-      let summary = file.contents.toString().split('<!--more-->')[0];
-      file.data.summary = summary;
+    .pipe(through.obj((post, enc, callback) => {
+      let summary = post.contents.toString().split('<!--more-->')[0];
+      post.data.summary = summary;
 
-      let url = file.relative.replace(/(index)?.html/g, '\\');
-      file.data.url = url
+      let url = post.relative.replace(/(index)?.html/g, '\\');
+      post.data.url = url;
 
-      if (file.data.tags) {
-        file.data.tags.forEach(tag => {
+      if (post.data.tags) {
+        post.data.tags.forEach(tag => {
           if (site.tags.indexOf(tag) == -1) {
             site.tags.push(tag);
           }
         });
       }
 
-      site.posts.push(file.data);
+      site.posts.push(post.data);
       callback();
     }))
 })
@@ -69,18 +69,25 @@ gulp.task('template', ['preparehtml'], () =>
       remove: true
     }))
     .pipe(marked())
-    .pipe(through.obj((file, enc, callback) => {
-      let newPath = file.path.replace(/(index)?.html/g, '\\index.html');
-      let newBase = file.base;
+    .pipe(through.obj((post, enc, callback) => {
+      let newPath = post.path.replace(/(index)?.html/g, '\\index.html');
+      let newBase = post.base;
 
-      file.data.site = site;
-      file.data.content = file.contents.toString();
+      post.data.site = site;
+      post.data.content = post.contents.toString();
+
+      post.data.files = [];
+      let url = post.relative.replace(/(index)?.html/g, '\\');
+      let codeName = url.split('\\').reverse()[1];
+      glob.sync(`./src/static/files/${codeName}/*`).forEach(file =>  {
+        post.data.files.push(file.replace('./src/static', ''));
+      });
 
       gulp
-        .src(`./src/templates/${file.data.template}.jade`)
+        .src(`./src/templates/${post.data.template}.jade`)
         .pipe(jade({
           pretty: false,
-          locals: file.data
+          locals: post.data
         }))
         .on('error', onError)
         .pipe(through.obj(file => {

@@ -8,4 +8,13 @@ block content
       span dcversus
 
   .container
+    h1 #{title}
+
     | !{content}
+
+    if files.length
+      h2 Материалы
+      ul
+        each file in files
+          li
+            a(href= file) #{file.split('/').reverse()[0]}
