@@ -17,8 +17,13 @@ block content
       each tag in site.tags
         a.tag [#{tag}]
 
-    .posts
-      h2 Записи
+    h2 Записи
+    ul.posts
       each post in site.posts
-        unless post.page
-          a.post #{post.title}
+        unless post.hide
+          li.post
+            a(href= post.url) #{post.title}
+            if post.tags
+              span.tags
+                each tag in site.tags
+                  span.tag [#{tag}]

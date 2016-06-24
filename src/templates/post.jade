@@ -1,4 +1,11 @@
 extends layout
 
 block content
-  | !{content}
+  header
+    .container
+      a.logo(href="/")
+        img(src="/logo.png" alt="logo")
+      span dcversus
+
+  .container
+    | !{content}

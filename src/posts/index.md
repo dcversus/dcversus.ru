@@ -1,7 +1,7 @@
 ---
 template: index
 title: Василий Версус — dcversus
-page: true
+hide: true
 ---
 
 С 2009 года занимаюсь проектированием, графическим оформлением, версткой и программированием веб-интерфейсов. <br>Мои [github](//github.com/dcversus) и [CV](//github.com/dcversus/CV).

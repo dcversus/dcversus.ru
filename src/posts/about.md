@@ -1,7 +1,7 @@
 ---
 template: post
 title: About page
-page: true
+hide: true
 ---
 
 # BUGAGA

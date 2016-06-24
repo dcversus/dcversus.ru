@@ -1,3 +1,4 @@
+/* banner */
 .banner {
   position: relative;
   overflow: hidden;
@@ -17,4 +18,13 @@
 .banner h1 span {
   display: block;
   opacity: .6;
+}
+
+/* posts */
+.posts .post {
+  margin-bottom: 1em;
+}
+
+.posts .post .tags .tag {
+  margin-left: .5em;
 }
