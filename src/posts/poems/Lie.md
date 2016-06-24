@@ -2,9 +2,9 @@
 template: post
 title: Обман
 links:
-    -stihi.ru/2013/12/21/11084
+    - //stihi.ru/2013/12/21/11084
 tags:
-    - poems
+    - poem
 ---
 
 ```

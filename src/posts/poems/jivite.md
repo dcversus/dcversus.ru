@@ -2,9 +2,9 @@
 template: post
 title: Живите
 links:
-    -stihi.ru/2013/12/21/11121
+    - //stihi.ru/2013/12/21/11121
 tags:
-    - poems
+    - poem
 ---
 
 ```

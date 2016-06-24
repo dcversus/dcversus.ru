@@ -2,7 +2,7 @@
 template: post
 title: Навеки
 tags:
-    - poems
+    - poem
 ---
 
 ```

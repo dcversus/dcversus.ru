@@ -2,7 +2,7 @@
 template: post
 title: Тенью лунной
 tags:
-    - poems
+    - poem
 ---
 
 ```

@@ -2,7 +2,7 @@
 template: post
 title: Живи
 tags:
-    - poems
+    - poem
 ---
 
 ```

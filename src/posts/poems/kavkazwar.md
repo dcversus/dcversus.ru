@@ -2,7 +2,7 @@
 template: post
 title: Война на Кавказе
 tags:
-    - poems
+    - poem
 ---
 
 ```

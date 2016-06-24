@@ -2,7 +2,7 @@
 template: post
 title: Скайрим
 tags:
-    - poems
+    - poem
 ---
 
 ```

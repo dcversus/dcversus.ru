@@ -2,7 +2,7 @@
 template: post
 title: Под шум дождя
 tags:
-    - poems
+    - poem
 ---
 
 ```

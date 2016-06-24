@@ -2,9 +2,9 @@
 template: post
 title: Демон
 links:
-    -stihi.ru/2013/12/21/11104
+    - //stihi.ru/2013/12/21/11104
 tags:
-    - poems
+    - poem
 ---
 
 ```

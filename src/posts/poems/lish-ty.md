@@ -2,7 +2,7 @@
 template: post
 title: Лишь ты
 tags:
-    - poems
+    - poem
 ---
 
 ```

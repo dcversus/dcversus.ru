@@ -2,7 +2,7 @@
 template: post
 title: Первые строки
 tags:
-    - poems
+    - poem
 ---
 
 ```

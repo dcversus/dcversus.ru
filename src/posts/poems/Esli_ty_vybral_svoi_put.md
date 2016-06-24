@@ -2,7 +2,7 @@
 template: post
 title: Если ты выбрал свой путь…
 tags:
-    - poems
+    - poem
 ---
 
 ```

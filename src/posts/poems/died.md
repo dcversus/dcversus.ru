@@ -3,7 +3,7 @@ template: post
 title: Мертвый
 date: 2015-07-27
 tags:
-    - poems
+    - poem
 ---
 
 ```

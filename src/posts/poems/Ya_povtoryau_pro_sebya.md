@@ -2,9 +2,9 @@
 template: post
 title: Я повторяю про себя
 links:
-    -stihi.ru/2013/12/21/11112
+    - //stihi.ru/2013/12/21/11112
 tags:
-    - poems
+    - poem
 ---
 
 ```

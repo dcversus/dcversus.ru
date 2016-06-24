@@ -3,8 +3,8 @@ template: post
 title: Тень безумия
 date: 2011-03-30
 links:
-    - epicwar.com/maps/166941
-    - xgm.guru/p/wc3/24956
+    - //epicwar.com/maps/166941
+    - //xgm.guru/p/wc3/24956
 tags:
     - warcraft3
     - modmaking

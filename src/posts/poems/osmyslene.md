@@ -2,7 +2,7 @@
 template: post
 title: Осмысленье
 tags:
-    - poems
+    - poem
 ---
 
 ```

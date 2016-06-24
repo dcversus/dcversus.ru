@@ -2,7 +2,7 @@
 template: post
 title: Сегодня всех я поздравляю
 tags:
-    - poems
+    - poem
 ---
 
 ```

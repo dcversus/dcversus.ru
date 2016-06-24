@@ -2,9 +2,9 @@
 template: post
 title: Котятки
 links:
-    -stihi.ru/2013/12/21/11067
+    - //stihi.ru/2013/12/21/11067
 tags:
-    - poems
+    - poem
 ---
 
 ```

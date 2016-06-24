@@ -2,7 +2,7 @@
 template: post
 title: Лишь знай
 tags:
-    - poems
+    - poem
 ---
 
 ```

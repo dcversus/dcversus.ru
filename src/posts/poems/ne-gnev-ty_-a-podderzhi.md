@@ -2,7 +2,7 @@
 template: post
 title: Не гневь ты, а поддержи…
 tags:
-    - poems
+    - poem
 ---
 
 ```

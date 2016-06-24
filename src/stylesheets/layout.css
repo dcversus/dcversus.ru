@@ -5,6 +5,47 @@
   min-width: 960px;
 }
 
+.inner {
+  background: var(--base-color);
+}
+
+.inner .container {
+  margin: 0 auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.inner .logo {
+  border: 0;
+  font-size: 1.75rem;
+}
+
+.inner .logo img {
+  height: 3rem;
+  width: 3rem;
+  vertical-align: middle;
+  margin-right: -1.7rem;
+  padding-bottom: 0.42rem;
+}
+
+.inner .logo span {
+  visibility: hidden;
+}
+
+.inner nav {
+  float: right;
+}
+
+.inner nav a {
+  display: inline-block;
+  padding: 1.3rem .5rem 1.9rem;
+  border-bottom: 0.25rem solid transparent;
+  margin-left: 0.5rem;
+}
+
+.inner nav a:hover {
+  border-bottom-color: var(--accent-color);
+}
 
 @media (max-width: 960px) {
   .container {

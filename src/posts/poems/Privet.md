@@ -2,9 +2,9 @@
 template: post
 title: ПРИВЕТ
 links:
-    -stihi.ru/2013/12/21/11045
+    - //stihi.ru/2013/12/21/11045
 tags:
-    - poems
+    - poem
 ---
 
 ```

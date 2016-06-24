@@ -3,7 +3,7 @@ template: post
 title: Дождливая чаща
 date: 2011-03-30
 links:
-    - epicwar.com/maps/166942
+    - //epicwar.com/maps/166942
 tags:
     - warcraft3
     - modmaking

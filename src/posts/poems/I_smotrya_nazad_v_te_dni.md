@@ -2,9 +2,9 @@
 template: post
 title: И смотря назад, в дни те
 links:
-    -stihi.ru/2013/12/21/11129
+    - //stihi.ru/2013/12/21/11129
 tags:
-    - poems
+    - poem
 ---
 
 ```

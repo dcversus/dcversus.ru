@@ -2,7 +2,7 @@
 template: post
 title: Люблю тебя Я
 tags:
-    - poems
+    - poem
 ---
 
 ```

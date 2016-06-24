@@ -2,7 +2,7 @@
 template: post
 title: В любви
 tags:
-    - poems
+    - poem
 ---
 
 ```

@@ -2,7 +2,7 @@
 template: post
 title: О ней
 tags:
-    - poems
+    - poem
 ---
 
 ```

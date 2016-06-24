@@ -1,13 +1,23 @@
 extends layout
 
 block content
-  header
+  header.inner
     .container
       a.logo(href="/")
         img(src="/logo.png" alt="logo")
-      span dcversus
+        span v
+        | ersus
+
+      nav
+        a(href="//github.com/dcversus") github
+        a(href="//github.com/dcversus/CV") CV
 
   .container
+    if tags
+      .tags
+        each tag in tags
+          span.tag [#{tag}]
+
     h1 #{title}
 
     | !{content}
@@ -18,3 +28,10 @@ block content
         each file in files
           li
             a(href= file) #{file.split('/').reverse()[0]}
+
+    if links
+      h2 Ссылки
+      ul
+        each link in links
+          li
+            a(href= link) #{link.split('/')[2]}

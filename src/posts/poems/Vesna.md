@@ -2,7 +2,7 @@
 template: post
 title: Весна
 tags:
-    - poems
+    - poem
 ---
 
 ```
