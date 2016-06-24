@@ -33,7 +33,7 @@ gulp.task('preparehtml', ['cleanhtml'], () => {
     tags: []
   };
 
-  gulp
+  return gulp
     .src('./src/posts/**/*.md')
     .on('error', onError)
     .pipe(frontMatter({
