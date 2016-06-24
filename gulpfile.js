@@ -42,8 +42,11 @@ gulp.task('preparehtml', ['cleanhtml'], () => {
     }))
     .pipe(marked())
     .pipe(through.obj((file, enc, callback) => {
-      var summary = file.contents.toString().split('<!--more-->')[0]
+      let summary = file.contents.toString().split('<!--more-->')[0];
       file.data.summary = summary;
+
+      let url = file.relative.replace(/(index)?.html/g, '\\');
+      file.data.url = url
 
       if (file.data.tags) {
         file.data.tags.forEach(tag => {
