@@ -24,7 +24,7 @@ tags:
   <span style="color: #009900;"><<span style="color: #000000; font-weight: bold;">button</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"sRight"</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"control right"</span>></span>><span style="color: #009900;"><<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">button</span>></span>
 <span style="color: #009900;"><<span style="color: #66cc66;">/</span>section></span></pre>
 
-![result1](/files/m/chto_takoe_slajder_i_kak_ego_sobrat/slider1.jpg)
+![result1](/files/chto_takoe_slajder_i_kak_ego_sobrat/slider1.jpg)
 
 Все содержимое слайдера мы обарачиваем в блок с классом slider. Мы это будем использовать для стилей (чтобы избежать пересечения правил). Далее создаем элементы управления, control left и right. Назначив им id для взаимодействия с элементами через JS. Сами слайды хранятся в блоке container, которому мы назначили id и установили margin-left через inline стили, для того, чтобы в будущем не получить ошибки при расчетах. Сами слайды могут содержать что угодно, любую разметку, единственным требованием является одинаковая ширина всех слайдов, чтобы упростить логику. Приступаем к оформлению. Первое, с чего мы начнем, это запишем все возможные селекторы.
 
@@ -65,7 +65,7 @@ tags:
   <span style="color: #000000; font-weight: bold;">outline</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1px</span> <span style="color: #993333;">solid</span> <span style="color: #cc00cc;">#fff</span><span style="color: #00AA00;">;</span>
 <span style="color: #00AA00;">}</span></pre>
 
-![result2](/files/m/chto_takoe_slajder_i_kak_ego_sobrat/slider2.jpg)
+![result2](/files/chto_takoe_slajder_i_kak_ego_sobrat/slider2.jpg)
 
 Пару важных моментов. Элементы управления и обертку container мы выстраиваем с использованием flexbox у slider. Сами слайды мы выстраиваем в ряд с использованием свойства display-inline. У обертки container установлено white-space: nowrap чтобы наши слайды не переносились на следующую строку, так же устанавливаем font-size: 0 для того, чтобы убрать пробелы между слайдами, а самим слайдам устанавливаем font-size: initial т.к. свойство font-size наследуется. Чтобы точно задать ширину слайда (избегая расчетов border и padding) мы устанавливаем свойство box-sizing: border-box
 
@@ -84,7 +84,7 @@ tags:
   <span style="color: #000066; font-weight: bold;">var</span> min <span style="color: #339933;">=</span> <span style="color: #CC0000;">0</span><span style="color: #339933;">;</span>
   <span style="color: #000066; font-weight: bold;">var</span> max <span style="color: #339933;">=</span> <span style="color: #339933;">-</span>slideCount <span style="color: #339933;">+</span> <span style="color: #009900;">(</span>viewWidth <span style="color: #339933;">/</span> slideWidth<span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//максимальное количество переходов вправо</span>
 
-  sLeft.<span style="color: #660066;">onclick</span> <span style="color: #339933;">=</span> <span style="color: #000066; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span> 
+  sLeft.<span style="color: #660066;">onclick</span> <span style="color: #339933;">=</span> <span style="color: #000066; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
     moveSlider<span style="color: #009900;">(</span><span style="color: #CC0000;">1</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
   <span style="color: #009900;">}</span>
 
@@ -105,8 +105,8 @@ tags:
 <span style="color: #009900;">}</span>
 <span style="color: #009900;">}</span><span style="color: #009900;">)</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre>
 
-![result3](/files/m/chto_takoe_slajder_i_kak_ego_sobrat/slider3.gif)
+![result3](/files/chto_takoe_slajder_i_kak_ego_sobrat/slider3.gif)
 
 Самым первым делом, мы пытаемся получить элемент container и если он есть, начинаем работать. Получаем элементы кнопок и получаем ширину контейнера, узнаем ширину одного элемента и получаем количество прямых потомков container. Важно, чтобы внутри небыло лишних элементов, только слайды. Когда внутри слайда может быть любая html структура. Максимальное количество переходов влево равна 0, а вправо -количеству слайдов+количеству слайдов которые видны. На кнопки управления вешается событие onclick с анонимной функцией, которая содержит вызов функции прокрутки с индексом направления. Сама функция прокрутки получает текущий margin и расчитывает какой слайд сейчас слева видимой части контейнера. Прибавляем к полученому значению индекс направления, выполняем проверку и применяем новый margin.
 
-Собственно на этом все, слайдер на чистом JavaScript работает, в самом базовом виде. Благодарю за прочтение, результат вы можете найти <a onclick="o('http://dcvs.ru/other/slider.htm')">здесь</a>.
+Собственно на этом все, слайдер на чистом JavaScript работает, в самом базовом виде. Благодарю за прочтение.
