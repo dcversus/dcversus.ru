@@ -1,6 +1,7 @@
 ---
 template: post
 title: Методы безопасной разработки приложений на php
+date: 2015-03-09
 tags:
     - article
 ---
