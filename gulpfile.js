@@ -150,7 +150,10 @@ gulp.task('watch', ['build'], () => {
   gulp.watch('src/stylesheets/**/*', ['css']);
   gulp.watch('src/templates/**/*', ['template']);
   gulp.watch('src/posts/**/*.md', ['template']);
-  gulp.watch('src/static/**/*', ['movestatic']).on('change', browserSync.reload);
+
+  gulp.watch('src/static/**/*', ['movestatic', 'template'])
+      .on('change', browserSync.reload)
+      .on('error', onError);
 });
 
 gulp.task('serve', ['watch'], () =>
