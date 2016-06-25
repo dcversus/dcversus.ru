@@ -1,6 +1,7 @@
 ---
 template: post
 title: SSL сертификаты
+date: 2015-04-02
 tags:
     - article
 ---
