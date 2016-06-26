@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>slider</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+.slider {
+  display: flex;
+}
+.slider .control {}
+.slider .control .left {}
+.slider .control .right {}
+.slider .contwrap {
+  overflow: hidden;
+  width: 400px;
+}
+.slider .container {
+  white-space: nowrap;
+  font-size: 0;
+  transition: .3s cubic-bezier(0, 0.74, 0.36, 1.09);
+}
+.slider .container .slide {
+  width: 200px;
+  display: inline-block;
+  height: 200px;
+  padding: 25px;
+  background-color: #C5291D;
+  color: #fff;
+  font-size: initial;
+  box-sizing: border-box;
+  outline: 1px solid #fff;
+}
+</style>
+</head>
+
+<body>
+  <section class="slider">
+    <button id="sLeft" class="control left"><</button>
+    <div class="contwrap">
+      <div id="sCont" class="container" style="margin-left:-0px;">
+        <div class="slide">slider1</div>
+        <div class="slide">slider2</div>
+        <div class="slide">slider3</div>
+        <div class="slide">slider4</div>
+        <div class="slide">slider5</div>
+      </div>
+    </div>
+    <button id="sRight" class="control right">></button>
+  </section>
+</body>
+
+<script>
+(function() {
+var sCont = document.getElementById('sCont');
+if(sCont) { //проверям, есть ли слайдер
+  var sLeft = document.getElementById('sLeft');
+  var sRight = document.getElementById('sRight');
+
+  var viewWidth = sCont.parentElement.clientWidth; //получаем ширину contwrap, видимой части
+  var slideWidth = sCont.firstElementChild.clientWidth; //ширина одного элемента
+  var slideCount = sCont.children.length; //количество всех слайдов
+
+  var min = 0;
+  var max = -slideCount + (viewWidth / slideWidth); //максимальное количество переходов вправо
+
+
+  sLeft.onclick = function() { 
+    moveSlider(1);
+  }
+
+  sRight.onclick = function() {
+    moveSlider(-1);
+  }
+
+  function moveSlider(direction) {
+    var margin = parseInt(sCont.style.marginLeft, 10); //получаем текущий margin
+    var active = margin / slideWidth; //узнаем какой сейчас слайд
+
+    active += direction;
+    active = (active>min)?min:active; //устанавливаем нижнюю границу
+    active = (active<max)?max:active; //устанавливаем верхнюю границу
+    
+    sCont.style.marginLeft = active * slideWidth + 'px'; //прокручиваем
+  }
+}
+})();
+</script>
+</html>

@@ -12,58 +12,64 @@ tags:
 
 В качестве примера будем делать слайдер на чистом JavaScript и анимировать все это будем с использованием css transitions. То что мы получим в конце можно найти <a onclick="o('http://dcvs.ru/other/slider.htm')">здесь</a>. При этом сразу отмечу, что вся логика будет строго в JS, все что касается представления будет в css, а html будет содержать только разметку. Итак с этой самой разметки и начинаем.
 
-<pre class="html4strict" style="font-family:monospace;"><span style="color: #009900;"><section <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"slider"</span>></span>
-  <span style="color: #009900;"><<span style="color: #000000; font-weight: bold;">button</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"sLeft"</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"control left"</span>><<<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">button</span>></span>
-  <span style="color: #009900;"><<span style="color: #000000; font-weight: bold;">div</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"contwrap"</span>></span>
-    <span style="color: #009900;"><<span style="color: #000000; font-weight: bold;">div</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"sCont"</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"container"</span> <span style="color: #000066;">style</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"margin-left:-0px;"</span>></span>
-      <span style="color: #009900;"><<span style="color: #000000; font-weight: bold;">div</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"slide"</span>></span>slider1<span style="color: #009900;"><<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">div</span>></span>
-      <span style="color: #009900;"><<span style="color: #000000; font-weight: bold;">div</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"slide"</span>></span>slider2<span style="color: #009900;"><<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">div</span>></span>
-      <span style="color: #009900;"><<span style="color: #000000; font-weight: bold;">div</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"slide"</span>></span>slider3<span style="color: #009900;"><<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">div</span>></span>
-    <span style="color: #009900;"><<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">div</span>></span>
-  <span style="color: #009900;"><<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">div</span>></span>
-  <span style="color: #009900;"><<span style="color: #000000; font-weight: bold;">button</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"sRight"</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">"control right"</span>></span>><span style="color: #009900;"><<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">button</span>></span>
-<span style="color: #009900;"><<span style="color: #66cc66;">/</span>section></span></pre>
+```html
+<section class="slider">
+  <button id="sLeft" class="control left"><</button>
+  <div class="contwrap">
+    <div id="sCont" class="container" style="margin-left:-0px;">
+      <div class="slide">slider1</div>
+      <div class="slide">slider2</div>
+      <div class="slide">slider3</div>
+    </div>
+  </div>
+  <button id="sRight" class="control right">></button>
+</section>
+```
 
 ![result1](/files/chto_takoe_slajder_i_kak_ego_sobrat/slider1.jpg)
 
 Все содержимое слайдера мы обарачиваем в блок с классом slider. Мы это будем использовать для стилей (чтобы избежать пересечения правил). Далее создаем элементы управления, control left и right. Назначив им id для взаимодействия с элементами через JS. Сами слайды хранятся в блоке container, которому мы назначили id и установили margin-left через inline стили, для того, чтобы в будущем не получить ошибки при расчетах. Сами слайды могут содержать что угодно, любую разметку, единственным требованием является одинаковая ширина всех слайдов, чтобы упростить логику. Приступаем к оформлению. Первое, с чего мы начнем, это запишем все возможные селекторы.
 
-<pre class="css" style="font-family:monospace;"><span style="color: #6666ff;">.slider</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.control</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.control</span> <span style="color: #6666ff;">.left</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.control</span> <span style="color: #6666ff;">.right</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.contwrap</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.container</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.container</span> <span style="color: #6666ff;">.slide</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span></pre>
+```css
+.slider {}
+.slider .control {}
+.slider .control .left {}
+.slider .control .right {}
+.slider .contwrap {}
+.slider .container {}
+.slider .container .slide {}
+```
 
 Теперь зададим стили для этих селекторов, позиционирование, оформление и правило transition для container. Css transition задает эффект перехода между двумя состояниями элемента, в нашем случае перед прокруткой и после (эффект плавной прокрутки).
 
-<pre class="css" style="font-family:monospace;"><span style="color: #6666ff;">.slider</span> <span style="color: #00AA00;">{</span>
-  <span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> flex<span style="color: #00AA00;">;</span>
-<span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.control</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.control</span> <span style="color: #6666ff;">.left</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.control</span> <span style="color: #6666ff;">.right</span> <span style="color: #00AA00;">{</span><span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.contwrap</span> <span style="color: #00AA00;">{</span>
-  <span style="color: #000000; font-weight: bold;">overflow</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">hidden</span><span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">:</span> <span style="color: #933;">400px</span><span style="color: #00AA00;">;</span>
-<span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.container</span> <span style="color: #00AA00;">{</span>
-  <span style="color: #000000; font-weight: bold;">white-space</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">nowrap</span><span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">font-size</span><span style="color: #00AA00;">:</span> <span style="color: #cc66cc;">0</span><span style="color: #00AA00;">;</span>
-  transition<span style="color: #00AA00;">:</span> .3s cubic-bezier<span style="color: #00AA00;">(</span><span style="color: #cc66cc;">0</span><span style="color: #00AA00;">,</span> <span style="color: #cc66cc;">0.74</span><span style="color: #00AA00;">,</span> <span style="color: #cc66cc;">0.36</span><span style="color: #00AA00;">,</span> <span style="color: #cc66cc;">1.09</span><span style="color: #00AA00;">)</span><span style="color: #00AA00;">;</span>
-<span style="color: #00AA00;">}</span>
-<span style="color: #6666ff;">.slider</span> <span style="color: #6666ff;">.container</span> <span style="color: #6666ff;">.slide</span> <span style="color: #00AA00;">{</span>
-  <span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">:</span> <span style="color: #933;">200px</span><span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> inline-block<span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">height</span><span style="color: #00AA00;">:</span> <span style="color: #933;">200px</span><span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">padding</span><span style="color: #00AA00;">:</span> <span style="color: #933;">25px</span><span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">background-color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#C5291D</span><span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#fff</span><span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">font-size</span><span style="color: #00AA00;">:</span> initial<span style="color: #00AA00;">;</span>
-  box-sizing<span style="color: #00AA00;">:</span> border-box<span style="color: #00AA00;">;</span>
-  <span style="color: #000000; font-weight: bold;">outline</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1px</span> <span style="color: #993333;">solid</span> <span style="color: #cc00cc;">#fff</span><span style="color: #00AA00;">;</span>
-<span style="color: #00AA00;">}</span></pre>
+```
+.slider {
+  display: flex;
+}
+.slider .control {}
+.slider .control .left {}
+.slider .control .right {}
+.slider .contwrap {
+  overflow: hidden;
+  width: 400px;
+}
+.slider .container {
+  white-space: nowrap;
+  font-size: 0;
+  transition: .3s cubic-bezier(0, 0.74, 0.36, 1.09);
+}
+.slider .container .slide {
+  width: 200px;
+  display: inline-block;
+  height: 200px;
+  padding: 25px;
+  background-color: #C5291D;
+  color: #fff;
+  font-size: initial;
+  box-sizing: border-box;
+  outline: 1px solid #fff;
+}
+```
 
 ![result2](/files/chto_takoe_slajder_i_kak_ego_sobrat/slider2.jpg)
 
@@ -71,39 +77,41 @@ tags:
 
 Теперь приступим к JS
 
-<pre class="javascript" style="font-family:monospace;"><span style="color: #009900;">(</span><span style="color: #000066; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
-<span style="color: #000066; font-weight: bold;">var</span> sCont <span style="color: #339933;">=</span> document.<span style="color: #660066;">getElementById</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'sCont'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-<span style="color: #000066; font-weight: bold;">if</span><span style="color: #009900;">(</span>sCont<span style="color: #009900;">)</span> <span style="color: #009900;">{</span> <span style="color: #006600; font-style: italic;">//проверям, есть ли слайдер</span>
-  <span style="color: #000066; font-weight: bold;">var</span> sLeft <span style="color: #339933;">=</span> document.<span style="color: #660066;">getElementById</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'sLeft'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-  <span style="color: #000066; font-weight: bold;">var</span> sRight <span style="color: #339933;">=</span> document.<span style="color: #660066;">getElementById</span><span style="color: #009900;">(</span><span style="color: #3366CC;">'sRight'</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
+```
+(function() {
+  var sCont = document.getElementById('sCont');
+  if(sCont) { //проверям, есть ли слайдер
+    var sLeft = document.getElementById('sLeft');
+    var sRight = document.getElementById('sRight');
 
-  <span style="color: #000066; font-weight: bold;">var</span> viewWidth <span style="color: #339933;">=</span> sCont.<span style="color: #660066;">parentElement</span>.<span style="color: #660066;">clientWidth</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//получаем ширину contwrap, видимой части</span>
-  <span style="color: #000066; font-weight: bold;">var</span> slideWidth <span style="color: #339933;">=</span> sCont.<span style="color: #660066;">firstElementChild</span>.<span style="color: #660066;">clientWidth</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//ширина одного элемента</span>
-  <span style="color: #000066; font-weight: bold;">var</span> slideCount <span style="color: #339933;">=</span> sCont.<span style="color: #660066;">children</span>.<span style="color: #660066;">length</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//количество всех слайдов</span>
+    var viewWidth = sCont.parentElement.clientWidth; //получаем ширину contwrap, видимой части
+    var slideWidth = sCont.firstElementChild.clientWidth; //ширина одного элемента
+    var slideCount = sCont.children.length; //количество всех слайдов
 
-  <span style="color: #000066; font-weight: bold;">var</span> min <span style="color: #339933;">=</span> <span style="color: #CC0000;">0</span><span style="color: #339933;">;</span>
-  <span style="color: #000066; font-weight: bold;">var</span> max <span style="color: #339933;">=</span> <span style="color: #339933;">-</span>slideCount <span style="color: #339933;">+</span> <span style="color: #009900;">(</span>viewWidth <span style="color: #339933;">/</span> slideWidth<span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//максимальное количество переходов вправо</span>
+    var min = 0;
+    var max = -slideCount + (viewWidth / slideWidth); //максимальное количество переходов вправо
 
-  sLeft.<span style="color: #660066;">onclick</span> <span style="color: #339933;">=</span> <span style="color: #000066; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
-    moveSlider<span style="color: #009900;">(</span><span style="color: #CC0000;">1</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-  <span style="color: #009900;">}</span>
+    sLeft.onclick = function() {
+      moveSlider(1);
+    }
 
-  sRight.<span style="color: #660066;">onclick</span> <span style="color: #339933;">=</span> <span style="color: #000066; font-weight: bold;">function</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
-    moveSlider<span style="color: #009900;">(</span><span style="color: #339933;">-</span><span style="color: #CC0000;">1</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span>
-  <span style="color: #009900;">}</span>
+    sRight.onclick = function() {
+      moveSlider(-1);
+    }
 
-  <span style="color: #000066; font-weight: bold;">function</span> moveSlider<span style="color: #009900;">(</span>direction<span style="color: #009900;">)</span> <span style="color: #009900;">{</span>
-    <span style="color: #000066; font-weight: bold;">var</span> margin <span style="color: #339933;">=</span> parseInt<span style="color: #009900;">(</span>sCont.<span style="color: #660066;">style</span>.<span style="color: #660066;">marginLeft</span><span style="color: #339933;">,</span> <span style="color: #CC0000;">10</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//получаем текущий margin</span>
-    <span style="color: #000066; font-weight: bold;">var</span> active <span style="color: #339933;">=</span> margin <span style="color: #339933;">/</span> slideWidth<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//узнаем какой сейчас слайд</span>
+    function moveSlider(direction) {
+      var margin = parseInt(sCont.style.marginLeft, 10); //получаем текущий margin
+      var active = margin / slideWidth; //узнаем какой сейчас слайд
 
-    active <span style="color: #339933;">+=</span> direction<span style="color: #339933;">;</span>
-    active <span style="color: #339933;">=</span> <span style="color: #009900;">(</span>active<span style="color: #339933;">></span>min<span style="color: #009900;">)</span><span style="color: #339933;">?</span>min<span style="color: #339933;">:</span>active<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//устанавливаем нижнюю границу</span>
-    active <span style="color: #339933;">=</span> <span style="color: #009900;">(</span>active<span style="color: #339933;"><</span>max<span style="color: #009900;">)</span><span style="color: #339933;">?</span>max<span style="color: #339933;">:</span>active<span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//устанавливаем верхнюю границу</span>
+      active += direction;
+      active = (active>min)?min:active; //устанавливаем нижнюю границу
+      active = (active<max)?max:active; //устанавливаем верхнюю границу
 
-    sCont.<span style="color: #660066;">style</span>.<span style="color: #660066;">marginLeft</span> <span style="color: #339933;">=</span> active <span style="color: #339933;">*</span> slideWidth <span style="color: #339933;">+</span> <span style="color: #3366CC;">'px'</span><span style="color: #339933;">;</span> <span style="color: #006600; font-style: italic;">//прокручиваем</span>
-  <span style="color: #009900;">}</span>
-<span style="color: #009900;">}</span>
-<span style="color: #009900;">}</span><span style="color: #009900;">)</span><span style="color: #009900;">(</span><span style="color: #009900;">)</span><span style="color: #339933;">;</span></pre>
+      sCont.style.marginLeft = active * slideWidth + 'px'; //прокручиваем
+    }
+  }
+})();
+```
 
 ![result3](/files/chto_takoe_slajder_i_kak_ego_sobrat/slider3.gif)
 
