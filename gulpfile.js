@@ -68,7 +68,9 @@ gulp.task('template', ['preparehtml'], () =>
       property: 'data',
       remove: true
     }))
-    .pipe(marked())
+    .pipe(marked({
+      highlight: code => require('highlight.js').highlightAuto(code).value
+    }))
     .pipe(through.obj((post, enc, callback) => {
       let newPath = post.path.replace(/(index)?.html/g, '\\index.html');
       let newBase = post.base;

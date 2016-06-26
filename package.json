@@ -25,6 +25,7 @@
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^6.1.1",
     "gulp-util": "^3.0.7",
+    "highlight.js": "^9.4.0",
     "jstransformer-markdown": "^1.1.0",
     "postcss-calc": "^5.2.1",
     "postcss-css-variables": "^0.5.1",
