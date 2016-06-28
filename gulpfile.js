@@ -2,7 +2,8 @@ const del         = require('del');
 const glob        = require('glob');
 const gulp        = require('gulp');
 const source      = require('vinyl-source-stream');
-const browserSync = require('browser-sync');
+// const browserSync = require('browser-sync');
+const webserver   = require('gulp-webserver');
 const util        = require('gulp-util');
 const plumber     = require('gulp-plumber');
 const frontMatter = require('gulp-front-matter');
@@ -11,6 +12,7 @@ const jade        = require('gulp-jade');
 const marked      = require('gulp-marked');
 const ghPages     = require('gulp-gh-pages');
 const postcss     = require('gulp-postcss');
+const eslint     = require('gulp-eslint');
 var site;
 
 function onError(err) {
@@ -100,21 +102,21 @@ gulp.task('template', ['preparehtml'], () =>
         }))
     }))
     .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.stream({
-      once: true
-    }))
+    // .pipe(browserSync.stream({
+    //   once: true
+    // }))
 );
 
 gulp.task('cleanjs', del.bind(null, ['./dist/**/*.js']));
 gulp.task('js', () => {
-  const jshint     = require('gulp-jshint');
+  // const jshint     = require('gulp-jshint');
   const babelify   = require('babelify');
   const browserify = require('browserify');
 
   gulp
     .src('./src/javascripts/**/*.js')
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
+    .pipe(eslint())
+    .pipe(eslint.format())
 
   browserify({
     entries: ['./src/javascripts/application.js'],
@@ -126,7 +128,7 @@ gulp.task('js', () => {
     .on('error', onError)
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.stream())
+    // .pipe(browserSync.stream())
 });
 
 gulp.task('cleancss', del.bind(null, ['./dist/**/*.css']));
@@ -143,7 +145,7 @@ gulp.task('css', ['cleancss'], () => {
     ]))
     .on('error', onError)
     .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.stream())
+    // .pipe(browserSync.stream())
 });
 
 gulp.task('build', ['template', 'js', 'css', 'movestatic']);
@@ -154,16 +156,22 @@ gulp.task('watch', ['build'], () => {
   gulp.watch('src/posts/**/*.md', ['template']);
 
   gulp.watch('src/static/**/*', ['movestatic', 'template'])
-      .on('change', browserSync.reload)
+      // .on('change', browserSync.reload)
       .on('error', onError);
 });
 
 gulp.task('serve', ['watch'], () =>
-  browserSync({
-    server: {
-      baseDir: ['./dist']
-    }
-  })
+  // browserSync({
+  //   server: {
+  //     baseDir: ['./dist']
+  //   }
+  // })
+  gulp
+    .src('dist')
+    .pipe(webserver({
+      livereload: true,
+      open: true
+    }))
 );
 
 gulp.task('deploy', ['build'], () =>
