@@ -1,6 +1,7 @@
 ---
 template: post
 title: Если ты выбрал свой путь…
+date: 2013-12-21
 tags:
     - poem
 ---

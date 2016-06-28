@@ -5,7 +5,8 @@ role: Неизвестно
 date: 2015-07-15
 tags:
     - site
-    - php
+    - nodejs
+    - ghpages
 ---
 
 Сайт проекта uz0.

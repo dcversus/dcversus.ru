@@ -1,6 +1,7 @@
 ---
 template: post
 title: Не гневь ты, а поддержи…
+date: 2013-12-21
 tags:
     - poem
 ---

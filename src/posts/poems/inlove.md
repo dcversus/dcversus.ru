@@ -1,6 +1,7 @@
 ---
 template: post
 title: В любви
+date: 2013-12-21
 tags:
     - poem
 ---

@@ -1,6 +1,7 @@
 ---
 template: post
 title: Сегодня всех я поздравляю
+date: 2013-12-21
 tags:
     - poem
 ---

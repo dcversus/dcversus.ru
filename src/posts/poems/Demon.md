@@ -1,6 +1,7 @@
 ---
 template: post
 title: Демон
+date: 2013-12-21
 links:
     - //stihi.ru/2013/12/21/11104
 tags:

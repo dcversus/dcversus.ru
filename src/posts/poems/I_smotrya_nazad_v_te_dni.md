@@ -1,6 +1,7 @@
 ---
 template: post
 title: И смотря назад, в дни те
+date: 2013-12-21
 links:
     - //stihi.ru/2013/12/21/11129
 tags:

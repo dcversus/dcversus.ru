@@ -1,6 +1,7 @@
 ---
 template: post
 title: ПРИВЕТ
+date: 2013-12-21
 links:
     - //stihi.ru/2013/12/21/11045
 tags:

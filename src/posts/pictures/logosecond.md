@@ -1,6 +1,7 @@
 ---
 template: post
 title: Логотип
+date: 2015-03-15
 tags:
     - picture
 ---

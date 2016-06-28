@@ -1,6 +1,7 @@
 ---
 template: post
 title: Люблю тебя Я
+date: 2013-12-21
 tags:
     - poem
 ---
