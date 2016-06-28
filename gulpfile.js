@@ -142,6 +142,10 @@ gulp.task('template', ['cleanhtml'], () => {
       callback();
     }))
     .on('end', () => {
+      site.posts.sort((a, b) =>
+        new Date(b.date) - new Date(a.date)
+      );
+
       site.posts.forEach(post => {
         gulp
           .src(`src/templates/${post.template}.jade`)
