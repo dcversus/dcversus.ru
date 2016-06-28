@@ -2,7 +2,6 @@ const del         = require('del');
 const glob        = require('glob');
 const gulp        = require('gulp');
 const source      = require('vinyl-source-stream');
-// const browserSync = require('browser-sync');
 const webserver   = require('gulp-webserver');
 const util        = require('gulp-util');
 const plumber     = require('gulp-plumber');
@@ -12,8 +11,9 @@ const jade        = require('gulp-jade');
 const marked      = require('gulp-marked');
 const ghPages     = require('gulp-gh-pages');
 const postcss     = require('gulp-postcss');
-const eslint     = require('gulp-eslint');
-var site;
+const eslint      = require('gulp-eslint');
+const babelify    = require('babelify');
+const browserify  = require('browserify');
 
 function onError(err) {
   util.beep();
@@ -21,34 +21,114 @@ function onError(err) {
   this.emit('end');
 }
 
-gulp.task('movestatic', () =>
+
+gulp.task('default', ['serve']);
+
+gulp.task('serve', ['watch'], () =>
   gulp
-    .src('./src/static/**')
-    .pipe(plumber())
-    .pipe(gulp.dest('./dist'))
+    .src('dist')
+    .pipe(webserver({
+      livereload: true,
+      open: true
+    }))
 );
 
-gulp.task('cleanhtml', del.bind(null, ['./dist/**/*.html']));
-gulp.task('preparehtml', ['cleanhtml'], () => {
-  site = {
+gulp.task('deploy', ['build'], () =>
+  gulp
+    .src('dist/**/*')
+    .pipe(ghPages({
+      branch: 'master'
+    }))
+);
+
+gulp.task('build', ['template', 'js', 'css', 'movestatic']);
+
+gulp.task('watch', ['build'], () => {
+  gulp.watch('src/javascripts/**/*', ['js']);
+  gulp.watch('src/stylesheets/**/*', ['css']);
+  gulp.watch('src/templates/**/*', ['template']);
+  gulp.watch('src/posts/**/*.md', ['template']);
+
+  gulp.watch('src/static/**/*', ['movestatic', 'template'])
+      .on('error', onError);
+});
+
+gulp.task('movestatic', () =>
+  gulp
+    .src('src/static/**')
+    .pipe(plumber())
+    .pipe(gulp.dest('dist'))
+);
+
+
+gulp.task('cleanjs', del.bind(null, ['dist/**/*.js']));
+gulp.task('js', ['cleanjs'], () => {
+  gulp
+    .src('src/javascripts/**/*.js')
+    .pipe(eslint())
+    .pipe(eslint.format())
+
+  browserify('src/javascripts/application.js', {
+    debug: true
+  })
+    .transform(babelify)
+    .bundle()
+    .on('error', onError)
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('dist'))
+});
+
+gulp.task('cleancss', del.bind(null, ['dist/**/*.css']));
+gulp.task('css', ['cleancss'], () =>
+  gulp
+    .src('src/stylesheets/application.css')
+    .pipe(postcss([
+      require('stylelint')(),
+      require('autoprefixer')('last 2 version'),
+      require('postcss-import'),
+      require('postcss-css-variables'),
+      require('postcss-calc'),
+      require('cssnano')()
+    ]))
+    .on('error', onError)
+    .pipe(gulp.dest('dist'))
+);
+
+
+gulp.task('cleanhtml', del.bind(null, ['dist/**/*.html']));
+gulp.task('template', ['cleanhtml'], () => {
+  var site = {
     posts: [],
     tags: []
   };
 
   return gulp
-    .src('./src/posts/**/*.md')
-    .on('error', onError)
+    .src('src/posts/**/*.md')
     .pipe(frontMatter({
       property: 'data',
       remove: true
     }))
-    .pipe(marked())
+    .pipe(marked({
+      highlight: code => require('highlight.js').highlightAuto(code).value
+    }))
     .pipe(through.obj((post, enc, callback) => {
       let summary = post.contents.toString().split('<!--more-->')[0];
       post.data.summary = summary;
 
+      post.data.path = post.path.replace(/(index)?.html/g, '\\index.html');
+      post.data.base = post.base;
+
+      post.data.site = site;
+      post.data.content = post.contents.toString();
+
       let url = post.relative.replace(/(index)?.html/g, '\\');
       post.data.url = url;
+
+      post.data.files = [];
+      let codeName = url.split('\\').reverse()[1];
+      glob.sync(`src/static/files/${codeName}/*`).forEach(file =>  {
+        post.data.files.push(file.replace('src/static', ''));
+      });
 
       if (post.data.tags) {
         post.data.tags.forEach(tag => {
@@ -61,125 +141,22 @@ gulp.task('preparehtml', ['cleanhtml'], () => {
       site.posts.push(post.data);
       callback();
     }))
-})
+    .on('end', () => {
+      site.posts.forEach(post => {
+        gulp
+          .src(`src/templates/${post.template}.jade`)
+          .pipe(jade({
+            pretty: false,
+            locals: post
+          }))
+          .on('error', onError)
+          .pipe(through.obj((file, enc, callback) => {
+            file.path = post.path;
+            file.base = post.base;
 
-gulp.task('template', ['preparehtml'], () =>
-  gulp
-    .src('./src/posts/**/*.md')
-    .pipe(frontMatter({
-      property: 'data',
-      remove: true
-    }))
-    .pipe(marked({
-      highlight: code => require('highlight.js').highlightAuto(code).value
-    }))
-    .pipe(through.obj((post, enc, callback) => {
-      let newPath = post.path.replace(/(index)?.html/g, '\\index.html');
-      let newBase = post.base;
-
-      post.data.site = site;
-      post.data.content = post.contents.toString();
-
-      post.data.files = [];
-      let url = post.relative.replace(/(index)?.html/g, '\\');
-      let codeName = url.split('\\').reverse()[1];
-      glob.sync(`./src/static/files/${codeName}/*`).forEach(file =>  {
-        post.data.files.push(file.replace('./src/static', ''));
+            callback(null, file)
+          }))
+          .pipe(gulp.dest('dist'))
       });
-
-      gulp
-        .src(`./src/templates/${post.data.template}.jade`)
-        .pipe(jade({
-          pretty: false,
-          locals: post.data
-        }))
-        .on('error', onError)
-        .pipe(through.obj(file => {
-          file.path = newPath;
-          file.base = newBase;
-
-          callback(null, file)
-        }))
-    }))
-    .pipe(gulp.dest('./dist'))
-    // .pipe(browserSync.stream({
-    //   once: true
-    // }))
-);
-
-gulp.task('cleanjs', del.bind(null, ['./dist/**/*.js']));
-gulp.task('js', () => {
-  // const jshint     = require('gulp-jshint');
-  const babelify   = require('babelify');
-  const browserify = require('browserify');
-
-  gulp
-    .src('./src/javascripts/**/*.js')
-    .pipe(eslint())
-    .pipe(eslint.format())
-
-  browserify({
-    entries: ['./src/javascripts/application.js'],
-    extensions: ['.js'],
-    debug: true
-  })
-    .transform(babelify)
-    .bundle()
-    .on('error', onError)
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest('./dist'))
-    // .pipe(browserSync.stream())
+    })
 });
-
-gulp.task('cleancss', del.bind(null, ['./dist/**/*.css']));
-gulp.task('css', ['cleancss'], () => {
-  return gulp
-    .src('./src/stylesheets/application.css')
-    .pipe(postcss([
-      require('stylelint')(),
-      require('autoprefixer')('last 2 version'),
-      require('postcss-import'),
-      require('postcss-css-variables'),
-      require('postcss-calc'),
-      require('cssnano')()
-    ]))
-    .on('error', onError)
-    .pipe(gulp.dest('./dist'))
-    // .pipe(browserSync.stream())
-});
-
-gulp.task('build', ['template', 'js', 'css', 'movestatic']);
-gulp.task('watch', ['build'], () => {
-  gulp.watch('src/javascripts/**/*', ['js']);
-  gulp.watch('src/stylesheets/**/*', ['css']);
-  gulp.watch('src/templates/**/*', ['template']);
-  gulp.watch('src/posts/**/*.md', ['template']);
-
-  gulp.watch('src/static/**/*', ['movestatic', 'template'])
-      // .on('change', browserSync.reload)
-      .on('error', onError);
-});
-
-gulp.task('serve', ['watch'], () =>
-  // browserSync({
-  //   server: {
-  //     baseDir: ['./dist']
-  //   }
-  // })
-  gulp
-    .src('dist')
-    .pipe(webserver({
-      livereload: true,
-      open: true
-    }))
-);
-
-gulp.task('deploy', ['build'], () =>
-  gulp
-    .src('./dist/**/*')
-    .pipe(ghPages({
-      branch: 'master'
-    }))
-);
-
-gulp.task('default', ['serve']);
