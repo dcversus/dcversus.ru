@@ -69,7 +69,7 @@ gulp.task('js', ['cleanjs'], () => {
     .pipe(eslint.format())
 
   browserify('src/javascripts/application.js', {
-    debug: true
+    debug: false
   })
     .transform(babelify)
     .bundle()
