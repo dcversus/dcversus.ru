@@ -1,3 +1,8 @@
+/* posts */
+.posts .post .tags .tag {
+  margin-left: .5em;
+}
+
 /* banner */
 .banner {
   position: relative;
@@ -20,7 +25,35 @@
   opacity: .6;
 }
 
-/* posts */
-.posts .post .tags .tag {
-  margin-left: .5em;
+/* enter animation */
+.banner figure,
+.banner h1,
+.banner p {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadein .6s .5s 1 forwards ease-in-out;
+}
+
+.banner figure {
+  animation-delay: .8s;
+}
+
+.banner h1 {
+  animation-delay: 1s;
+}
+
+.banner p {
+  animation-delay: 1.2s;
+}
+
+@keyframes fadein {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
