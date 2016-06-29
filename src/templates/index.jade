@@ -18,7 +18,7 @@ block content
         a.tag [#{tag}]
 
     h2 Записи
-    ul.posts#posts
+    ul.posts.hideMore
       each post in site.posts
         unless post.hide
           li.post
@@ -28,4 +28,4 @@ block content
                 each tag in post.tags
                   span.tag [#{tag}]
 
-    a.more(onclick="showMore('posts')") Показать еще
+    a.more(onclick="removeClass('hideMore', this)") Показать еще

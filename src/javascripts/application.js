@@ -1,1 +1,2 @@
 import './hello';
+import './index';

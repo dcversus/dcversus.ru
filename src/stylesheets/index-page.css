@@ -3,6 +3,16 @@
   margin-left: .5em;
 }
 
+.posts.hideMore .post:nth-child(n+10) {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+}
+
+.posts .post {
+  transition: .3s;
+}
+
 /* banner */
 .banner {
   position: relative;
