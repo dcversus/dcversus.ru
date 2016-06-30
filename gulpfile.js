@@ -124,11 +124,24 @@ gulp.task('template', ['cleanhtml'], () => {
       let url = post.relative.replace(/(index)?.html/g, '\\');
       post.data.url = url;
 
-      post.data.files = [];
       let codeName = url.split('\\').reverse()[1];
+      post.data.files = [];
+      post.data.images = [];
       glob.sync(`src/static/files/${codeName}/*`).forEach(file =>  {
-        post.data.files.push(file.replace('src/static', ''));
+        let isImage = (/\.(gif|jpg|jpeg|png)$/i).test(file);
+        let currectPath = file.replace('src/static', '');
+        let type = (isImage) ? 'images' : 'files';
+
+        post.data[type].push(currectPath);
       });
+
+      if(!post.data.tags) {
+        post.data.tags = [];
+      }
+
+      if(!post.data.links) {
+        post.data.links = [];
+      }
 
       if (post.data.tags) {
         post.data.tags.forEach(tag => {

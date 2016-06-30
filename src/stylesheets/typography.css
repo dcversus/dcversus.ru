@@ -42,9 +42,9 @@ h3 {
   font-size: 1.5rem;
 }
 
-p + h1,
-p + h2,
-p + h3 {
+p ~ h1,
+p ~ h2,
+p ~ h3 {
   margin: 2rem 0 1rem;
 }
 

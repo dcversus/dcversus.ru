@@ -4,6 +4,7 @@
 @import 'typography.css';
 @import 'layout.css';
 @import 'index-page.css';
+@import 'post.css';
 
 :root {
   --accent-color: #f9690e;
