@@ -24,7 +24,7 @@ block content
 
     if images.length
       h2 Изображения
-      .image-gallery
+      .image-gallery.dcbox
         each image in images
           a(href= image)
             img(alt= image.split('/').reverse()[0] src= image)
