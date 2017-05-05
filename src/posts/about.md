@@ -1,6 +1,6 @@
 ---
 template: post
-title: Василий Версус
+title: Вася Версус
 hide: true
 ---
 
