@@ -1,6 +1,6 @@
 ---
 template: index
-title: Вася Версус — dcversus
+title: Василиса Версус — dcversus
 hide: true
 ---
 

@@ -1,5 +1,5 @@
 (() => {
-  let mainText = 'Вася Версус';
+  let mainText = 'Василиса Версус';
   let mainFormat = 'color: #f9690e; font-size: 3em';
   let additionalText = 'https://dcversus.ru/about';
 
