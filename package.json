@@ -4,9 +4,23 @@
   "description": "",
   "author": "dcversus <dcversus@gmail.com>",
   "scripts": {
-
+    "start": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
+    "build": "webpack --mode production",
+    "deploy": "yarn build && gh-pages -d dist"
   },
   "dependencies": {
-
+    "normalize.css": "^8.0.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.3",
+    "cross-env": "^5.1.3",
+    "css-loader": "^0.28.10",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.0.4",
+    "style-loader": "^0.20.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0"
   }
 }

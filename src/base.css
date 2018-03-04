@@ -1,0 +1,18 @@
+@import '../~normalize.css';
+
+:root {
+  --accent-color: #f9690e;
+  --base-color: #333;
+  --dark-color: #06061d;
+  --light-color: #888;
+}
+
+body {
+  color: var(--accent-color);
+  background-color: var(--base-color);
+}
+
+::selection {
+  color: white;
+  background: var(--accent-color);
+}
