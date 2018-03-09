@@ -38,9 +38,9 @@
 
 .social {
   position: absolute;
-  right: 190px;
+  right: 150px;
   font-size: 13px;
-  top: 48px;
+  top: 39px;
   text-decoration: none;
   color: #888;
   letter-spacing: -0.4px;
@@ -61,12 +61,16 @@
   margin-top: 97px
 }
 .content .logo {
+  position: relative;
+  z-index: 9999;
   background: url("assets/Versus.svg");
   float: left;
   width: var(--logo-size);
   height: var(--logo-size);
 }
 .content h1 {
+  position: relative;
+  z-index: 9999;
   padding-left: var(--to-left);
   padding-top: 18px;
   font-family: "MuseoCyrl";
@@ -96,6 +100,8 @@
 }
 
 .projects {
+  position: relative;
+  z-index: 9999;
   margin-left: 25px;
   margin-top: 137px;
 }
@@ -124,23 +130,43 @@
 }
 
 .decoration-lines{
-  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
 }
 
 .type1{
   background: url("assets/sfema-1.svg");
-  width: calc(72px * 2);
-  height: calc(60px * 2);
+  left: 285px;
+  top: 27px;
+  width: 158px;
+  height: 110px;
+  background-size: cover;
 }
 
 .type2{
   background: url("assets/sfema-2.svg");
-  width: calc(200px * 2);
-  height: calc(155px * 2);
+  left: 213px;
+  top: 157px;
+  width: 353px;
+  height: 283px;
+  background-size: cover;
 }
 
 .type3{
   background: url("assets/sfema-3.svg");
-  width: calc(100px * 2);
-  height: calc(300px * 2);
+  left: 134px;
+  top: 120px;
+  width: 169px;
+  height: 544px;
+  background-size: cover;
+}
+
+.type4{
+  background: url("assets/sfema-4.svg");
+  left: 298px;
+  top: 439px;
+  width: 224px;
+  height: 84px;
+  background-size: cover;
 }
