@@ -1,13 +1,27 @@
 @import '../~normalize.css';
 
+@font-face {
+  font-family: MuseoCyrl;
+  src: url(fonts/MuseoCyrl.ttf);
+}
+
+@font-face {
+  font-family: Gotham;
+  src: url(fonts/GothamProRegular.ttf);
+}
+
 :root {
   --accent-color: #f9690e;
   --base-color: #333;
   --dark-color: #06061d;
   --light-color: #888;
+  --to-left: 141px;
+  --logo-size: 125px;
 
   color: var(--accent-color);
   background-color: var(--base-color);
+
+  font-family: Gotham;
 }
 
 ::selection {
@@ -17,20 +31,116 @@
 
 /*  */
 
-.wrapper {}
+.wrapper {
+  margin: 0 auto;
+  max-width: 951px;
+}
 
-.social {}
+.social {
+  position: absolute;
+  right: 190px;
+  font-size: 13px;
+  top: 48px;
+  text-decoration: none;
+  color: #888;
+  letter-spacing: -0.4px;
+  word-spacing: 0px;
+  display: inline-block;
+}
 
-.content {}
-.content .logo {}
-.content h1 {}
-.content h2 {}
-.content p {}
-.content a {}
+.social:after {
+  display: inline-block;
+  width: 30px;
+  margin-left: 10px;
+  content: url("assets/Versus.svg");
+  position: relative;
+  vertical-align: middle;
+}
 
-.projects {}
-.projects a {}
-.projects a.uz0 {}
-.projects a.tes {}
+.content {
+  margin-top: 97px
+}
+.content .logo {
+  background: url("assets/Versus.svg");
+  float: left;
+  width: var(--logo-size);
+  height: var(--logo-size);
+}
+.content h1 {
+  padding-left: var(--to-left);
+  padding-top: 18px;
+  font-family: "MuseoCyrl";
+  font-size: 55px;
+  letter-spacing: 2.5px;
+  margin-bottom: -20px;
+}
+.content h2 {
+  padding-left: var(--to-left);
+  font-size: 22px;
+  letter-spacing: -0.6px;
+  margin-bottom: 33px;
+}
+.content p {
+  padding-left: var(--to-left);
+  color: #eee;
+  letter-spacing: 0.15px;
+  line-height: 22px;
+  word-spacing: 1.6px;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
 
-.footer {}
+.content a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.projects {
+  margin-left: 25px;
+  margin-top: 137px;
+}
+
+.projects a {
+  display: inline-block;
+  width: var(--logo-size);
+  height: var(--logo-size);
+}
+
+.projects a.uz0 {
+  background: url("assets/Uz0.svg");
+  width: calc(var(--logo-size) - 9px);
+  height: calc(var(--logo-size) - 9px);
+}
+
+.projects a.tes { background: url("assets/theedgestory.svg") }
+
+.footer {
+  margin-top: 14px;
+  padding-left: var(--to-left);
+  letter-spacing: 0.15px;
+  line-height: 22px;
+  word-spacing: 1.6px;
+  font-size: 12px;
+}
+
+.decoration-lines{
+  display: inline-block;
+}
+
+.type1{
+  background: url("assets/sfema-1.svg");
+  width: calc(72px * 2);
+  height: calc(60px * 2);
+}
+
+.type2{
+  background: url("assets/sfema-2.svg");
+  width: calc(200px * 2);
+  height: calc(155px * 2);
+}
+
+.type3{
+  background: url("assets/sfema-3.svg");
+  width: calc(100px * 2);
+  height: calc(300px * 2);
+}
