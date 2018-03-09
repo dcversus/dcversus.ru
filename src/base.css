@@ -12,6 +12,7 @@
 
 :root {
   --accent-color: #f9690e;
+  --accent-color-dark: #a14003;
   --base-color: #333;
   --dark-color: #06061d;
   --light-color: #888;
@@ -60,7 +61,6 @@
 .content {
   margin-top: 97px;
   position: relative;
-  z-index: 9999;
 }
 .content .logo {
   background: url("assets/Versus.svg");
@@ -70,7 +70,6 @@
 }
 .content h1 {
   position: relative;
-  z-index: 9999;
   padding-left: var(--to-left);
   padding-top: 18px;
   font-family: "MuseoCyrl";
@@ -79,7 +78,7 @@
   margin-bottom: -20px;
 }
 .content h2 {
-  opacity: 0.3;
+  color: var(--accent-color-dark);
   padding-left: var(--to-left);
   font-size: 22px;
   letter-spacing: -0.6px;
@@ -102,7 +101,6 @@
 
 .projects {
   position: relative;
-  z-index: 9999;
   margin-left: 25px;
   margin-top: 137px;
 }
@@ -123,7 +121,6 @@
 
 .footer {
   position: relative;
-  z-index: 9999;
   margin-top: 14px;
   padding-left: var(--to-left);
   letter-spacing: 0.15px;
@@ -135,6 +132,7 @@
 
 .decoration-lines{
   position: absolute;
+  z-index: -1;
   left: 0px;
   top: 0px;
 }
