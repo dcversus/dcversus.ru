@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <filter id="glow" width="20" height="20" x="-10" y="-10">
+    <feFlood result="flood" flood-color="#f9690e" flood-opacity="1"></feFlood>
+    <feComposite in="flood" result="mask" in2="SourceGraphic" operator="in"></feComposite>
+    <feMorphology in="mask" result="dilated" operator="dilate" radius="1"></feMorphology>
+    <feGaussianBlur in="dilated" result="blurred" stdDeviation="25"></feGaussianBlur>
+    <feComposite in="blurred" in2="SourceGraphic" operator="arithmetic" k2="1" k3="-1" result="nocombine"></feComposite>
+    <feMerge>
+        <feMergeNode in="nocombine"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+    </feMerge>
+  </filter>
+</svg>

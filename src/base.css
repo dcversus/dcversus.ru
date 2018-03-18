@@ -182,3 +182,53 @@ body {
   top: 34rem;
   width: 16rem;
 }
+
+/* animation */
+.content .logo svg,
+.projects a svg {
+  filter: drop-shadow(0 0 1rem #333);
+  transition: .3s;
+}
+
+.content .logo,
+.projects a {
+  animation: light-pulse 3s infinite;
+}
+
+svg .active {
+  animation: levitation 1.5s alternate ease-in-out infinite;
+  transition: 1s;
+  filter: url(#glow);
+}
+
+.uz0 svg .active {
+  animation-delay: .1s;
+  animation-duration: .8s;
+}
+
+.tes svg .active {
+  animation-delay: .3s;
+  animation-duration: 1.3s;
+}
+
+.content .logo:hover svg,
+.projects a:hover svg {
+  filter: drop-shadow(0 0 2rem #f9690e);
+
+  /*animation-play-state: paused;*/
+}
+
+@keyframes light-pulse {
+  1%   { filter: grayscale(0.5); }
+  50%  { filter: grayscale(0); }
+  100% { filter: grayscale(0.5); }
+}
+
+@keyframes levitation {
+  0% {
+    transform: translate(0, -0.5rem);
+  }
+  100% {
+    transform: translate(0, .5rem);
+  }
+}
