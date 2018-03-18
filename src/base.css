@@ -148,6 +148,7 @@
 
 .decoration-line {
   position: absolute;
+  fill: var(--schema-color);
   z-index: -1;
 }
 
