@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "",
   "author": "dcversus <dcversus@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "build": "webpack --mode production",
@@ -23,6 +24,7 @@
     "style-loader": "^0.20.2",
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.10",
-    "webpack-dev-server": "^3.1.0"
+    "webpack-dev-server": "^3.1.0",
+    "svg-inline-loader": "^0.8.0"
   }
 }

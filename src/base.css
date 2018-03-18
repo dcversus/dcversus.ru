@@ -1,28 +1,50 @@
 @import '../~normalize.css';
 
-@font-face {
-  font-family: MuseoCyrl;
-  src: url(fonts/MuseoCyrl.ttf);
-}
-
-@font-face {
-  font-family: Gotham;
-  src: url(fonts/GothamProRegular.ttf);
-}
-
 :root {
   --accent-color: #f9690e;
-  --accent-color-dark: #a14003;
   --base-color: #333;
-  --dark-color: #06061d;
-  --light-color: #888;
-  --to-left: 141px;
-  --logo-size: 125px;
+  --schema-color: #4a4a4a;
+  --base-font: GothamPro, serif;
+  --header-font: Museo, sans-serif;
 
-  color: var(--accent-color);
+  color: #fff;
   background-color: var(--base-color);
 
-  font-family: Gotham;
+  font-family: var(--base-font);
+  font-weight: normal;
+  font-size: 14px;
+}
+
+/* fonts */
+
+@font-face {
+  font-family: "Museo";
+  src: url("./assets/fonts/MuseoRegular.eot");
+  src: url("./assets/fonts/MuseoRegular.eot?#iefix")format("embedded-opentype"),
+  url("./assets/fonts/MuseoRegular.woff") format("woff"),
+  url("./assets/fonts/MuseoRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "GothamPro";
+  src: url("./assets/fonts/GothamProRegular.eot");
+  src: url("./assets/fonts/GothamProRegular.eot?#iefix")format("embedded-opentype"),
+  url("./assets/fonts/GothamProRegular.woff") format("woff"),
+  url("./assets/fonts/GothamProRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "GothamPro";
+  src: url("./assets/fonts/GothamProLight.eot");
+  src: url("./assets/fonts/GothamProLight.eot?#iefix")format("embedded-opentype"),
+  url("./assets/fonts/GothamProLight.woff") format("woff"),
+  url("./assets/fonts/GothamProLight.ttf") format("truetype");
+  font-style: normal;
+  font-weight: lighter;
 }
 
 ::selection {
@@ -34,141 +56,121 @@
 
 .wrapper {
   margin: 0 auto;
-  max-width: 951px;
+  max-width: 100rem;
+  padding: 4rem 10rem 9rem;
+  position: relative;
 }
 
 .social {
-  position: absolute;
-  right: 150px;
-  font-size: 13px;
-  top: 39px;
+  display: block;
+  text-align: right;
+  color: #fff;
   text-decoration: none;
-  color: #888;
-  letter-spacing: -0.4px;
-  word-spacing: 0px;
-  display: inline-block;
+  font-weight: 100;
+  padding-right: 3.5rem;
+  line-height: 0.9;
+  height: 1rem;
 }
 
 .social:after {
-  display: inline-block;
-  width: 30px;
-  margin-left: 10px;
-  content: url("assets/Versus.svg");
-  position: relative;
-  vertical-align: middle;
+
 }
 
 .content {
-  margin-top: 97px;
-  position: relative;
+  margin-top: 3rem;
+  margin-bottom: 10rem;
+  margin-left: 10rem;
+  padding-top: 1rem;
+  padding-left: 1rem;
 }
+
 .content .logo {
-  background: url("assets/Versus.svg");
-  float: left;
-  width: var(--logo-size);
-  height: var(--logo-size);
+  width: 10rem;
+  display: block;
+  position: absolute;
+  left: 9.3rem;
+  margin-top: -1.3rem;
 }
+
 .content h1 {
-  position: relative;
-  padding-left: var(--to-left);
-  padding-top: 18px;
-  font-family: "MuseoCyrl";
-  font-size: 55px;
-  letter-spacing: 2.5px;
-  margin-bottom: -20px;
+  color: var(--accent-color);
+  font-family: var(--header-font);
+  font-size: 4rem;
+  margin: 0;
+  letter-spacing: 0.4rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.1rem;
 }
+
 .content h2 {
-  color: var(--accent-color-dark);
-  padding-left: var(--to-left);
-  font-size: 22px;
-  letter-spacing: -0.6px;
-  margin-bottom: 33px;
+  font-weight: lighter;
+  margin: 0;
+  font-size: 1.7rem;
+  color: var(--accent-color);
+  opacity: .5;
+  margin-bottom: 3rem;
 }
+
 .content p {
-  padding-left: var(--to-left);
-  color: #eee;
-  letter-spacing: 0.15px;
-  line-height: 22px;
-  word-spacing: 1.6px;
-  font-size: 12px;
-  margin-bottom: 20px;
+  line-height: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .content a {
   color: var(--accent-color);
   text-decoration: none;
+  font-weight: bold;
 }
 
 .projects {
-  position: relative;
-  margin-left: 25px;
-  margin-top: 137px;
+  margin-bottom: 3rem;
+  font-size: 0;
 }
 
 .projects a {
+  width: 10rem;
   display: inline-block;
-  width: var(--logo-size);
-  height: var(--logo-size);
 }
 
 .projects a.uz0 {
-  background: url("assets/Uz0.svg");
-  width: calc(var(--logo-size) - 9px);
-  height: calc(var(--logo-size) - 9px);
+
 }
 
-.projects a.tes { background: url("assets/theedgestory.svg") }
+.projects a.tes {
+
+}
 
 .footer {
-  position: relative;
-  margin-top: 14px;
-  padding-left: var(--to-left);
-  letter-spacing: 0.15px;
-  line-height: 22px;
-  word-spacing: 1.6px;
-  font-size: 12px;
-  color: #555;
+  margin-left: 10rem;
+  padding-left: 1rem;
+  opacity: .5;
 }
 
-.decoration-lines{
+.decoration-line {
   position: absolute;
   z-index: -1;
-  left: 0px;
-  top: 0px;
 }
 
-.type1{
-  background: url("assets/sfema-1.svg");
-  left: 285px;
-  top: 27px;
-  width: 158px;
-  height: 110px;
-  background-size: cover;
+.decoration-line.type1 {
+  left: 17rem;
+  top: 1rem;
+  width: 12rem;
 }
 
-.type2{
-  background: url("assets/sfema-2.svg");
-  left: 213px;
-  top: 157px;
-  width: 353px;
-  height: 283px;
-  background-size: cover;
+.decoration-line.type2 {
+  left: 11rem;
+  top: 13rem;
+  width: 26rem;
 }
 
-.type3{
-  background: url("assets/sfema-3.svg");
-  left: 134px;
-  top: 120px;
-  width: 169px;
-  height: 544px;
-  background-size: cover;
+.decoration-line.type3 {
+  left: 3rem;
+  top: 8rem;
+  width: 13.5rem;
 }
 
-.type4{
-  background: url("assets/sfema-4.svg");
-  left: 298px;
-  top: 439px;
-  width: 224px;
-  height: 84px;
-  background-size: cover;
+.decoration-line.type4 {
+  left: 17rem;
+  top: 34rem;
+  width: 16rem;
 }

@@ -19,21 +19,6 @@ const extractCSS = new ExtractTextPlugin({
   disable: buildingForLocal()
 });
 
-const extractHTML = new HtmlWebpackPlugin({
-  filename: 'index.html',
-  inject: 'inline',
-  template: setPath('/index.html'),
-  environment: process.env.NODE_ENV,
-  isLocalBuild: buildingForLocal(),
-});
-
-const define = new webpack.DefinePlugin({
-  'process.env': {
-    NODE_ENV: '"'+NODE_ENV+'"'
-  }
-});
-
-
 module.exports = {
   output: {
     filename: buildingForLocal() ? '[name].js' : '[name].[hash].js'
@@ -54,13 +39,27 @@ module.exports = {
     noInfo: false
   },
   plugins: [
-    extractHTML,
     extractCSS,
-    define,
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      inject: 'inline',
+      template: setPath('src/index.html'),
+      environment: process.env.NODE_ENV,
+      isLocalBuild: buildingForLocal(),
+    }),
     new CopyWebpackPlugin([{ from: 'public' }]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"'+NODE_ENV+'"'
+      }
+    })
   ],
   module: {
     rules: [
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
@@ -79,7 +78,7 @@ module.exports = {
         })
       },
       {
-        test: /\.(png|jpg|gif|svg|webm|ttf|pdf|txt)$/,
+        test: /\.(png|jpg|gif|webm|ttf|eot|woff|otf|pdf|txt)$/,
         use: [
           {
             loader: 'file-loader',
