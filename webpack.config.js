@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebappWebpackPlugin = require('webapp-webpack-plugin')
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -40,6 +41,13 @@ module.exports = {
   },
   plugins: [
     extractCSS,
+    new WebappWebpackPlugin({
+      logo: setPath('./src/assets/Versus.svg'),
+      favicons: {
+        background: '#333',
+        theme_color: '#f9690e',
+      }
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       inject: 'inline',

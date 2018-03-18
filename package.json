@@ -1,7 +1,7 @@
 {
-  "name": "dcversus.github.io",
+  "name": "dcversus.ru",
   "version": "0.0.2",
-  "description": "",
+  "description": "personal website of Vasilisa Versus",
   "author": "dcversus <dcversus@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -22,9 +22,10 @@
     "gh-pages": "^1.1.0",
     "html-webpack-plugin": "^3.0.4",
     "style-loader": "^0.20.2",
+    "svg-inline-loader": "^0.8.0",
+    "webapp-webpack-plugin": "^1.3.0",
     "webpack": "^4.0.1",
     "webpack-cli": "^2.0.10",
-    "webpack-dev-server": "^3.1.0",
-    "svg-inline-loader": "^0.8.0"
+    "webpack-dev-server": "^3.1.0"
   }
 }
