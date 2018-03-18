@@ -15,6 +15,13 @@
   font-size: 14px;
 }
 
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
 /* fonts */
 
 @font-face {
