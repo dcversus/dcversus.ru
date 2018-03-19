@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Museo";
+  src: url("./assets/fonts/MuseoRegular.eot");
+  src: url("./assets/fonts/MuseoRegular.eot?#iefix")format("embedded-opentype"),
+  url("./assets/fonts/MuseoRegular.woff") format("woff"),
+  url("./assets/fonts/MuseoRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "GothamPro";
+  src: url("./assets/fonts/GothamProRegular.eot");
+  src: url("./assets/fonts/GothamProRegular.eot?#iefix")format("embedded-opentype"),
+  url("./assets/fonts/GothamProRegular.woff") format("woff"),
+  url("./assets/fonts/GothamProRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "GothamPro";
+  src: url("./assets/fonts/GothamProLight.eot");
+  src: url("./assets/fonts/GothamProLight.eot?#iefix")format("embedded-opentype"),
+  url("./assets/fonts/GothamProLight.woff") format("woff"),
+  url("./assets/fonts/GothamProLight.ttf") format("truetype");
+  font-style: normal;
+  font-weight: lighter;
+}
