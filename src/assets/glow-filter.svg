@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" style="height: 0;">
   <filter id="glow" width="20" height="20" x="-10" y="-10">
     <feFlood result="flood" flood-color="#f9690e" flood-opacity="1"></feFlood>
     <feComposite in="flood" result="mask" in2="SourceGraphic" operator="in"></feComposite>
