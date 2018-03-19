@@ -109,11 +109,12 @@ body {
 }
 
 .projects a.uz0 {
-
+  position: relative;
+  top: -0.5rem;
 }
 
 .projects a.tes {
-
+  margin-left: 2rem;
 }
 
 .footer {
