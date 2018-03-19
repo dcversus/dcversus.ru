@@ -16,6 +16,12 @@
   font-size: 14px;
 }
 
+.light {
+  --base-color: #fff;
+  --schema-color: var(--accent-color);
+  color: #333;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -125,80 +131,111 @@ body {
 
 .decoration-line {
   position: absolute;
-  fill: var(--schema-color);
   z-index: -1;
 }
 
 .decoration-line.type1 {
   left: 17rem;
   top: 1rem;
-  width: 12rem;
+  width: 176.5px;
 }
 
 .decoration-line.type2 {
-  left: 11rem;
-  top: 13rem;
-  width: 26rem;
+  left: 11.5rem;
+  top: 15rem;
+  width: 256px;
 }
 
 .decoration-line.type3 {
   left: 3rem;
   top: 8rem;
-  width: 13.5rem;
+  width: 188.7px;
 }
 
 .decoration-line.type4 {
   left: 17rem;
-  top: 34rem;
-  width: 16rem;
+  top: 33rem;
+  width: 278.3px;
 }
 
 /* animation */
 .content .logo svg,
 .projects a svg {
-  filter: drop-shadow(0 0 1rem #333);
+  filter: drop-shadow(0 0 1rem var(--base-color));
   transition: .3s;
 }
 
-.content .logo,
-.projects a {
-  animation: light-pulse 3s infinite;
-}
-
 svg .active {
-  animation: levitation 1.5s alternate ease-in-out infinite;
+  animation: levitation 3.5s alternate ease-in-out infinite, light-pulse 5s infinite;
   transition: 1s;
   filter: url(#glow);
 }
 
 .uz0 svg .active {
   animation-delay: .1s;
-  animation-duration: .8s;
+  animation-duration: 3.8s;
 }
 
 .tes svg .active {
   animation-delay: .3s;
-  animation-duration: 1.3s;
+  animation-duration: 4.3s;
 }
 
 .content .logo:hover svg,
 .projects a:hover svg {
-  filter: drop-shadow(0 0 2rem #f9690e);
+  filter: drop-shadow(0 0 2rem var(--accent-color));
+}
 
-  /*animation-play-state: paused;*/
+.decoration-line {
+  opacity: .2;
+  filter: grayscale(1);
+  animation: color-pulse 15s infinite;
+}
+
+.decoration-line.type1 {
+  animation-delay: 3s;
+}
+
+.decoration-line.type2 {
+  animation-delay: 1s;
+}
+
+.decoration-line.type3 {
+  animation-delay: 5s;
+}
+
+.decoration-line.type4 {
+  animation-delay: 8s;
+}
+
+.decoration-line path {
+  stroke: var(--base-color);
+  fill: var(--accent-color);
+  stroke-width: 1px;
+  stroke-dasharray: 100%;
+  stroke-dashoffset: 100%;
+  animation: dash 15s infinite;
+}
+
+@keyframes dash {
+  0%   { stroke-dashoffset: 100%; stroke-dasharray: 100% }
+  50%  { stroke-dashoffset: 0; stroke-dasharray: 50% }
+  100% { stroke-dashoffset: 100%; stroke-dasharray: 100% }
 }
 
 @keyframes light-pulse {
-  1%   { filter: grayscale(0.5); }
-  50%  { filter: grayscale(0); }
-  100% { filter: grayscale(0.5); }
+  0%   { opacity: 0.5; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+@keyframes color-pulse {
+  0%   { filter: grayscale(1); opacity: .2; }
+  50%  { filter: grayscale(0); opacity: .5; }
+  100% { filter: grayscale(1); opacity: .2; }
 }
 
 @keyframes levitation {
-  0% {
-    transform: translate(0, -0.5rem);
-  }
-  100% {
-    transform: translate(0, .5rem);
-  }
+  0% { transform: translate(0, -0.5rem); }
+  100% { transform: translate(0, .5rem); }
 }
