@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WebappWebpackPlugin = require('webapp-webpack-plugin')
+const WebappWebpackPlugin = require('webapp-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
 
