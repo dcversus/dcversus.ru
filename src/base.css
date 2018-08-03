@@ -44,7 +44,8 @@ body {
 }
 
 .social {
-  display: block;
+  display: none;
+  /*display: block;*/
   text-align: right;
   color: #fff;
   text-decoration: none;
@@ -244,4 +245,29 @@ svg .active {
 @keyframes levitation {
   0% { transform: translate(0, -0.5rem); }
   100% { transform: translate(0, .5rem); }
+}
+
+@media (max-width: 65rem) {
+  .content .logo {
+    position: static;
+    margin-top: 5rem;
+  }
+
+  .content {
+    margin: 0;
+    height: initial;
+    padding-top: 0;
+  }
+
+  .footer {
+    margin: 0;
+  }
+
+  .decoration-line {
+    display: none;
+  }
+
+  .wrapper {
+    padding: 0;
+  }
 }
