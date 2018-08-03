@@ -60,10 +60,12 @@ body {
 
 .content {
   margin-top: 3rem;
-  margin-bottom: 10rem;
   margin-left: 10rem;
   padding-top: 1rem;
   padding-left: 1rem;
+  max-width: 60rem;
+  height: 30rem;
+  overflow: hidden;
 }
 
 .content .logo {
@@ -90,7 +92,7 @@ body {
   font-size: 1.7rem;
   color: var(--accent-color);
   opacity: .5;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .content p {
@@ -154,7 +156,7 @@ body {
 
 .decoration-line.type4 {
   left: 17rem;
-  top: 33rem;
+  top: 35rem;
   width: 278.3px;
 }
 
@@ -192,18 +194,22 @@ svg .active {
   animation: color-pulse 15s infinite;
 }
 
+.decoration-line.type1 path,
 .decoration-line.type1 {
   animation-delay: 3s;
 }
 
+.decoration-line.type2 path,
 .decoration-line.type2 {
   animation-delay: 1s;
 }
 
+.decoration-line.type3 path,
 .decoration-line.type3 {
   animation-delay: 5s;
 }
 
+.decoration-line.type4 path,
 .decoration-line.type4 {
   animation-delay: 8s;
 }
