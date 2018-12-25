@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb-base",
+  "rules": {
+    "linebreak-style": "off",
+    "no-underscore-dangle": "off",
+    "no-new": "off",
+    "import/prefer-default-export": [0],
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "import/resolver": { "node": { "paths": ["src"] } },
+    "ecmascript": 6
+  },
+  "plugins": [
+    "html"
+  ]
+}

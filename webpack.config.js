@@ -3,65 +3,19 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WebappWebpackPlugin = require('webapp-webpack-plugin');
+// const WebappWebpackPlugin = require('webapp-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
-const NODE_ENV = process.env.NODE_ENV;
+const IS_PROD = process.env.NODE_ENV === 'production';
 
-const setPath = function(folderName) {
-  return path.join(__dirname, folderName);
-}
-
-const buildingForLocal = () => {
-  return (NODE_ENV === 'development');
-};
-
-const extractCSS = new ExtractTextPlugin({
-  filename: 'styles.[hash].css', //'[name].[contenthash].css',
-  disable: buildingForLocal()
-});
-
-module.exports = {
+// CONFIG
+const config = {
+  entry: './src/index.js',
   output: {
-    filename: buildingForLocal() ? '[name].js' : '[name].[hash].js'
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/',
+    filename: 'build.js',
   },
-
-  optimization: {
-    runtimeChunk: false,
-    splitChunks: {
-      chunks: 'all', // Taken from https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
-    }
-  },
-  resolveLoader: {
-    modules: [setPath('node_modules')]
-  },
-  mode: buildingForLocal() ? 'development' : 'production',
-  devServer: {
-    historyApiFallback: true,
-    noInfo: false
-  },
-  plugins: [
-    extractCSS,
-    new WebappWebpackPlugin({
-      logo: setPath('./src/assets/Versus.svg'),
-      favicons: {
-        background: '#333',
-        theme_color: '#f9690e',
-      }
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      inject: 'inline',
-      template: setPath('src/index.html'),
-      environment: process.env.NODE_ENV,
-      isLocalBuild: buildingForLocal(),
-    }),
-    new CopyWebpackPlugin([{ from: 'public' }]),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"'+NODE_ENV+'"'
-      }
-    })
-  ],
   module: {
     rules: [
       {
@@ -69,31 +23,77 @@ module.exports = {
         loader: 'svg-inline-loader'
       },
       {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: [{
-          loader: 'babel-loader',
-          options: { presets: ['es2015'] }
-        }]
-      },
-      {
+        enforce: 'post',
         test: /\.css$/,
-        use: extractCSS.extract({
+        loader: IS_PROD ? ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-          }]
-        })
+          use: 'css-loader',
+        }) : 'style-loader!css-loader?sourceMap',
+      }, {
+        enforce: 'pre',
+        test: /\.(js)$/,
+        loader: 'eslint-loader',
+        options: {
+          emitWarning: true,
+          failOnError: false,
+          failOnWarning: false,
+        },
+        exclude: /node_modules/,
+      }, {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+      }, {
+        test: /\.(png|jpg|gif|ttf|woff|eot)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]',
+        },
+      }, {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            interpolate: true,
+          },
+        },
       },
-      {
-        test: /\.(png|jpg|gif|webm|ttf|eot|woff|otf|pdf|txt)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {}
-          }
-        ]
-      }
-    ]
+    ],
   },
+  resolve: {
+    modules: ['node_modules', 'src'],
+    extensions: ['*', '.js', '.json'],
+  },
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true,
+    overlay: true,
+  },
+  performance: {
+    hints: false,
+  },
+  devtool: '#eval-source-map',
+  plugins: [
+    // new WebappWebpackPlugin({
+    //   logo: path.resolve(__dirname, './src/assets/Versus.svg'),
+    //   favicons: {
+    //     background: '#333',
+    //     theme_color: '#f9690e',
+    //   }
+    // }),
+    new CopyWebpackPlugin([{ from: 'public' }]),
+    new FaviconsWebpackPlugin('./src/assets/Versus.svg'),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/index.ejs',
+    }),
+  ],
 };
+
+if (IS_PROD) {
+  config.plugins.push(
+    new ExtractTextPlugin('bundle.css'),
+  );
+}
+
+module.exports = config;
